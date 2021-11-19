@@ -127,8 +127,15 @@ RC DefaultHandler::create_table(const char *dbname, const char *relation_name, i
   return db->create_table(relation_name, attribute_count, attributes);
 }
 
+// RC DefaultHandler::drop_table(const char *dbname, const char *relation_name) {
+//   return RC::GENERIC_ERROR;
+// }
 RC DefaultHandler::drop_table(const char *dbname, const char *relation_name) {
-  return RC::GENERIC_ERROR;
+  Db *db = find_db(dbname);  // 这是原有的代码，用来查找对应的数据库，不过目前只有一个库
+  if(db == nullptr) {
+    return RC::SCHEMA_DB_NOT_OPENED;
+  }
+  return db->drop_table(relation_name); // 直接调用db的删掉接口
 }
 
 RC DefaultHandler::create_index(Trx *trx, const char *dbname, const char *relation_name, const char *index_name, const char *attribute_name) {

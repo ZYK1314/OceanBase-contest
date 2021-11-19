@@ -171,6 +171,7 @@ enum SqlCommandFlag {
 typedef struct Query {
   enum SqlCommandFlag flag;
   union Queries sstr;
+  int q_size;
 } Query;
 
 #ifdef __cplusplus
